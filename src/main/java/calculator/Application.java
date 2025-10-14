@@ -30,6 +30,25 @@ public class Application {
                 }
             }
             numArray = numStr.toArray(new String[0]);
+        } else {
+            int idxEsc = input.indexOf("\\n"); // 리터럴 '\' + 'n'
+            int idxLF = input.indexOf('\n');   // 실제 개행 문자
+
+            int newlineIndex = 0;
+            int newlineLength = 0;
+
+            if (idxEsc >= 0) {
+                newlineIndex = idxEsc;
+                newlineLength = 2;
+            } else if(idxLF >= 0) {
+                newlineIndex = idxLF;
+                newlineLength = 1;
+            }
+
+            String separator = input.substring(2, newlineIndex);
+            String numbers = input.substring(newlineIndex + newlineLength);
+
+            numArray = numbers.split(separator);
         }
 
         // 숫자 합산
